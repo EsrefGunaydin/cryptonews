@@ -1,9 +1,8 @@
 // User is not authenticated
 import { Request, Response, NextFunction} from "express"
 
-
-
 const isNotAuth =  (req:Request, res:Response, next: NextFunction)=> {
+
     if (req.session.isAuth) {
       next();
     } else {
