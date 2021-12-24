@@ -1,5 +1,6 @@
 import express from 'express';
 import controller from '../controllers/postControllers';
+import userController from "../controllers/userControllers"
 export const router = express.Router();
 
 router.get('/posts', controller.getPosts);
@@ -27,3 +28,4 @@ router.get('/posts', controller.getPosts);
 // };
 
 
+router.post("/register", userController.registerUser)

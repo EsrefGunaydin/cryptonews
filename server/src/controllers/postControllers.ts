@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import axios, { AxiosResponse } from 'axios';
 
 interface Post {
@@ -8,13 +8,11 @@ interface Post {
     body: String;
 }
 
-
-
 // getting all posts
-const getPosts = async (req: Request, res: Response, next: NextFunction) => {
+const getPosts = async (req: Request, res: Response) => {
     console.log(req.query)
-    const { q } = req.query
-    var options = {
+    const { q }  = req.query
+    var options: any = {
         method: 'GET',
         url: 'https://bing-news-search1.p.rapidapi.com/news/search',
         params: {q, safeSearch: 'Off', textFormat: 'Raw', freshness: 'Day'},
@@ -25,11 +23,12 @@ const getPosts = async (req: Request, res: Response, next: NextFunction) => {
         }
       };
 
+
     // get some posts
     let result: AxiosResponse = await axios.request(options);
-    let posts: [Post] = result.data.value[0];
+    let posts: [Post] = result.data.value;
     return res.status(200).json({
-        message: posts
+        posts: posts
     });
 };
 
