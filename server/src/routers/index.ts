@@ -1,9 +1,11 @@
 import express from 'express';
 import controller from '../controllers/postControllers';
 import userController from "../controllers/userControllers"
+import { isNotAuth, isAuth, currentUser } from '../config/authMiddleware';
 export const router = express.Router();
 
-router.get('/posts', controller.getPosts);
+router.get('/posts', isNotAuth, controller.getPosts);
+router.get('/sessions',isNotAuth, controller.getSessions)
 // router.get('/posts/:id', controller.getPost);
 // router.put('/posts/:id', controller.updatePost);
 // router.delete('/posts/:id', controller.deletePost);
@@ -29,3 +31,5 @@ router.get('/posts', controller.getPosts);
 
 
 router.post("/register", userController.registerUser)
+router.post("/login", userController.loginUser)
+router.get("/logout", userController.logoutUser)

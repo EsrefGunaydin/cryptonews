@@ -32,6 +32,21 @@ const getPosts = async (req: Request, res: Response) => {
     });
 };
 
+const getSessions = (req:Request, res:Response)=>{
+    
+    if (req.session.views) {
+        req.session.views++
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<p>views: ' + req.session.views + '</p>')
+        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.end()
+      } else {
+        req.session.views = 1
+        res.end('welcome to the session demo. refresh!')
+      }
+
+}
+
 // // getting a single post
 // const getPost = async (req: Request, res: Response, next: NextFunction) => {
 //     // get the post id from the req
@@ -91,4 +106,4 @@ const getPosts = async (req: Request, res: Response) => {
 //     });
 // };
 
-export default { getPosts };
+export default { getPosts, getSessions };
