@@ -12,11 +12,12 @@ interface Post {
 
 // getting all posts
 const getPosts = async (req: Request, res: Response, next: NextFunction) => {
-
+    console.log(req.query)
+    const { q } = req.query
     var options = {
         method: 'GET',
         url: 'https://bing-news-search1.p.rapidapi.com/news/search',
-        params: {q: 'btc', safeSearch: 'Off', textFormat: 'Raw', freshness: 'Day'},
+        params: {q, safeSearch: 'Off', textFormat: 'Raw', freshness: 'Day'},
         headers: {
           'x-bingapis-sdk': 'true',
           'x-rapidapi-host': 'bing-news-search1.p.rapidapi.com',
