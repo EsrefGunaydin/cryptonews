@@ -4,8 +4,8 @@ import userController from "../controllers/userControllers"
 import { isNotAuth, isAuth, currentUser } from '../config/authMiddleware';
 export const router = express.Router();
 
-router.get('/posts', isNotAuth, controller.getPosts);
-router.get('/sessions',isNotAuth, controller.getSessions)
+router.get('/api/posts', controller.getPosts);
+router.get('/api/sessions',isNotAuth, controller.getSessions)
 // router.get('/posts/:id', controller.getPost);
 // router.put('/posts/:id', controller.updatePost);
 // router.delete('/posts/:id', controller.deletePost);
@@ -30,6 +30,6 @@ router.get('/sessions',isNotAuth, controller.getSessions)
 // };
 
 
-router.post("/register", userController.registerUser)
-router.post("/login", userController.loginUser)
-router.get("/logout", userController.logoutUser)
+router.post("/api/register", userController.registerUser)
+router.post("/api/login", userController.loginUser)
+router.get("/api/logout", userController.logoutUser)
