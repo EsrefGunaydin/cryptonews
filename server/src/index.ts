@@ -4,20 +4,24 @@ import cors from "cors";
 import helmet from "helmet";
 import { router } from "./routers/index";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import sqlStore from "express-mysql-session";
 const app = express();
 
+
 dotenv.config();
+
 // app middlewares
 app.use(helmet());
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", router);
+app.use(cookieParser());
 
 //session store
 const SQLStore = new sqlStore(session);
 
+// App session
 app.use(
   session({
     store: new SQLStore({
@@ -28,7 +32,7 @@ app.use(
       database: "cryptonews",
     }),
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hour
@@ -36,6 +40,11 @@ app.use(
     },
   })
 );
+
+
+
+//Routes
+app.use("/", router);
 
 // app variables
 if (!process.env.PORT) process.exit(1);

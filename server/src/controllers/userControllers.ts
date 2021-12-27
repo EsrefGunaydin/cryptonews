@@ -2,10 +2,12 @@ import {Request, Response } from "express";
 const bcrypt = require('bcrypt');
 import User from "../models/user"
 import * as EmailValidator from 'email-validator';
-import express from "express";
-import session from 'express-session';
-import sqlStore from "express-mysql-session";
-const app = express()
+
+declare module 'express-session' {
+    interface Session {
+        [key: string]: any;
+    }
+  }
 
 const registerUser = async (req: Request, res: Response)=> {
 
@@ -16,7 +18,6 @@ const registerUser = async (req: Request, res: Response)=> {
       };
     const isEmailValid = EmailValidator.validate(email); // true
 
-    console.log(req.body)
     // const isUserExist = (email:string) => userList.some(user => user.email=== email)
     const user = await User.findOne({ where: { email: email} });
 
@@ -41,18 +42,18 @@ const registerUser = async (req: Request, res: Response)=> {
 const loginUser = async (req:Request, res:Response)=>{
     
     const { email, password }: { email: string; password: string } = req.body; 
-    console.log(email, password)
 
     const user = await User.findOne({ where: { email: email } });
     if (user === null) return res.send({ error: "Username or email can not be found" });
 
     // compare the password to the hashed password in the DB
-    const correctPassword = await bcrypt.compare(password, user?.password);
+    const correctPassword = await bcrypt.compare(password, user.password);
     if (!correctPassword) return res.send({error: "Incorrect password!"});
     
+    req.session.isAuth = true;
+    req.session.userEmail = email;
+    console.log(req.session)
 
-    req.session?.isAuth = true;
-    req.session?.userEmail = email;
     res.send({msg: email})
 }
 

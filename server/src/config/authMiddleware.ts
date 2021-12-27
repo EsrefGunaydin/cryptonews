@@ -6,7 +6,7 @@ const isNotAuth =  (req:Request, res:Response, next: NextFunction)=> {
     if (req.session.isAuth) {
       next();
     } else {
-      res.json({error: "unauthorized"})
+      res.send({msg: "unauthorized"})
     }
    };
    

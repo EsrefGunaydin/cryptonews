@@ -10,7 +10,9 @@ interface Post {
 
 // getting all posts
 const getPosts = async (req: Request, res: Response) => {
-    console.log(req.query)
+
+    req.session.isAuth = true;
+
     const { q }  = req.query
     var options: any = {
         method: 'GET',

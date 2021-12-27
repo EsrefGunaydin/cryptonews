@@ -1,8 +1,6 @@
-import { stringify } from "querystring";
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { resourceLimits } from "worker_threads";
 
 const LoginForm = (): JSX.Element => {
 
@@ -26,7 +24,7 @@ const LoginForm = (): JSX.Element => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    const result = await axios.post("http://localhost:4000/login", user)
+    const result = await axios.post("http://localhost:4000/api/login", user)
     console.log(result)
     setError(result.data.error)
     setMessage(result.data.msg)
@@ -47,7 +45,7 @@ const LoginForm = (): JSX.Element => {
             <input type="password" name="password" value={user.password} onChange={onChangeHandler}/>
           </div>
           <div>
-            <input type="submit" />
+            <button>Submit</button>
           </div>
         </form>
       </Container>

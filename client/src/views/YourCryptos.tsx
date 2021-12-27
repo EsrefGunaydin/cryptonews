@@ -1,11 +1,13 @@
 import React from 'react'
+import LoginForm from '../components/LoginForm'
 import MainNav from '../components/navigation/MainNav'
 
 const YourCryptos = () => {
     return (
         <div>
             <MainNav />
-            Your Cryptos Will Show Up here
+            Your have to register or login first to track your cryptos
+            <LoginForm />
         </div>
     )
 }
