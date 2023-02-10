@@ -2,6 +2,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+
+
+////THIS IS SOMETHING IADDED ///
+
 In the project directory, you can run:
 
 ///I HAVE ADDED THIS LINE HERE///
